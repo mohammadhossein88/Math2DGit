@@ -11,21 +11,26 @@ public class Addition : MonoBehaviour
 {
 
     // Start is called before the first frame updat
-    public int a;
-    public int b;
-    public int c;
+
     public TMP_Text Atext;
     public TMP_Text Btext;
     public TMP_Text Operatortext;
+    public TMP_Text healthText;
+    
     public Button[] buttons;
     public TMP_Text[] textButtons;
+    
     public Transform timerImage;
     public SpriteRenderer timerSprite;
-    public TMP_Text healthText;
-    public int d;
-    public  int score;
-    public int health;
-    float timer = 20;
+    
+    private int _a;
+    private int b;
+    private int c;
+    private int d;
+    private int score;
+    private int health;
+    
+    private float timer = 20;
     private float timerRedues;
     private float timerScaleX;
     void Start()
@@ -59,11 +64,11 @@ public class Addition : MonoBehaviour
 
     private void GenrateQuestion()
     {
-        a = Random.Range(0,100);
-        Atext.text = a.ToString();
+        _a = Random.Range(0,100);
+        Atext.text = _a.ToString();
         b = Random.Range(0, 100);
         Btext.text = b.ToString();
-        c = a + b;
+        c = _a + b;
         d = Random.Range(c - 10, c + 11);
         int randomAnswers = Random.Range(0, 2);
         buttons[randomAnswers].gameObject.name = c.ToString();
@@ -95,7 +100,6 @@ public class Addition : MonoBehaviour
         }
         else
         {
-            Debug.Log("False");
             health--;
             healthText.text = health.ToString();
             Losing();
@@ -106,7 +110,6 @@ public class Addition : MonoBehaviour
     {
         if (score == 10)
         {
-            Debug.LogWarning("win");
         }
     }
 
@@ -114,7 +117,6 @@ public class Addition : MonoBehaviour
     {
         if (health == 0)
         {
-            Debug.LogWarning("lose");
         }
     }
   
