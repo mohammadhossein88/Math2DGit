@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Compression;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,26 +17,33 @@ public class Addition : MonoBehaviour
     public TMP_Text Btext;
     public TMP_Text Operatortext;
     public TMP_Text healthText;
+    public GameObject winningPanel;
+    public GameObject losingPanel;
     
     public Button[] buttons;
     public TMP_Text[] textButtons;
     
     public Transform timerImage;
     public SpriteRenderer timerSprite;
-    
+
+    public GameManger gameManger;
+    private int[] _notPrimeNumbers = new int[75];
     private int _a;
-    private int b;
+    private int _b;
     private int c;
     private int d;
     private int score;
     private int health;
-    
+    private int operstion;
+    private int minRandom;
+    private int maxRandom;
     private float timer = 20;
     private float timerRedues;
     private float timerScaleX;
     void Start()
     {
-        Operatortext.text = "+";
+        operstion = gameManger.operstion;
+        Debug.Log(operstion);
         GenrateQuestion();
         health = 3;
         healthText.text = health.ToString();
@@ -44,6 +52,78 @@ public class Addition : MonoBehaviour
 
     }
 
+    private int GameOperationHandler()
+    {
+        if (operstion == 1)
+        {
+            minRandom = 0;
+            maxRandom = 100;
+            _a = Random.Range(minRandom,maxRandom);
+            Atext.text = _a.ToString();
+            _b = Random.Range(minRandom, 100);
+            Btext.text = _b.ToString();
+            Operatortext.text = "+";
+            return _a + _b;
+            //+
+        }
+        else if(operstion==2)
+        {
+            Operatortext.text = "-";
+            maxRandom = 0;
+            maxRandom = 100;
+            minRandom = 0;
+            maxRandom = 100;
+            _a = Random.Range(minRandom,maxRandom);
+            _b = Random.Range(minRandom,maxRandom);
+            if (_a < _b)
+            {
+                Btext.text = _a.ToString();
+                Atext.text = _b.ToString();
+                return _b - _a;
+
+            }
+
+            Atext.text = _a.ToString();
+            Btext.text = _b.ToString();
+            return _a - _b;
+        }
+        else if (operstion == 3)
+        {
+            Operatortext.text = "*";
+            minRandom = 2;
+            maxRandom = 20;
+            _a = Random.Range(minRandom,maxRandom);
+            Atext.text = _a.ToString();
+            _b = Random.Range(minRandom, maxRandom);
+            Btext.text = _b.ToString();
+            return _a * _b;
+        }
+        else if (operstion == 4)
+        {
+            Operatortext.text = "/";
+            minRandom = 2;
+            maxRandom = 100;
+            _a = Random.Range(minRandom,maxRandom);
+            Atext.text = _a.ToString();
+            int[] divisibility = new int[_a / 2];
+            int counter = 0;
+            for (int i = 2; i < _a/2; i++)
+            {
+                if (_a % i == 0)
+                {
+                    divisibility[counter] = i;
+                    counter++;
+                }
+            }
+
+            int r = Random.Range(0, counter);
+            _b = divisibility[r];
+            return _a / _b;
+            
+        }
+
+        return 0;
+    }
     private void Update()
     {
         if (timerImage.localScale.x >= 0)
@@ -56,19 +136,14 @@ public class Addition : MonoBehaviour
                 timerSprite.color = Color.red;
             }
         }
-        else
-        {
-           
-        }
+        Winning();
+        Losing();
     }
-
+    
     private void GenrateQuestion()
     {
-        _a = Random.Range(0,100);
-        Atext.text = _a.ToString();
-        b = Random.Range(0, 100);
-        Btext.text = b.ToString();
-        c = _a + b;
+
+        c = GameOperationHandler();
         d = Random.Range(c - 10, c + 11);
         int randomAnswers = Random.Range(0, 2);
         buttons[randomAnswers].gameObject.name = c.ToString();
@@ -95,6 +170,8 @@ public class Addition : MonoBehaviour
             GenrateQuestion();
             timerImage.localScale = new Vector3(timerScaleX - timerRedues, timerImage.localScale.y,
                 timerImage.localScale.z);
+            timerSprite.color=Color.white;
+            score++;
             Winning();
            
         }
@@ -110,6 +187,8 @@ public class Addition : MonoBehaviour
     {
         if (score == 10)
         {
+            winningPanel.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
@@ -117,6 +196,8 @@ public class Addition : MonoBehaviour
     {
         if (health == 0)
         {
+            losingPanel.SetActive(true);
+            Time.timeScale = 0;
         }
     }
   
