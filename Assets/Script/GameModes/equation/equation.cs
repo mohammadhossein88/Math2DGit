@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class equation : MonoBehaviour
 {
@@ -24,8 +24,7 @@ public class equation : MonoBehaviour
     void Start()
     {
         numberTwo = Random.Range(_minNumber, _MaxNumber);
-        AnsewerS=Random.Range(_minNumber, _MaxNumber);
-        
+        numberOne=Random.Range(_minNumber, _MaxNumber);
         
     }
 
@@ -42,10 +41,48 @@ public class equation : MonoBehaviour
         {
             AnsewerS = numberOne - numberTwo;
         }
-
         AnsewerA = numberTwo + numberOne;
+        
+    }
 
-    } 
+    public void AnswerChecker(string answer)
+    {
+        int ans = Convert.ToInt32(answer);
+        if (ans == numberOne)
+        {
+            uIManger.IncreaseScore();
+
+        }
+        else
+        {
+            uIManger.DecreaseHealth();
+
+        }
+    }
+    public void ontrueAnsewer()
+    {
+        if (_isTrue==true)
+        {
+            uIManger.IncreaseScore();
+        }
+        else if (_isTrue == false)
+        {
+            uIManger.DecreaseHealth();
+        }
+        
+    }
+
+    public void onfalseAnsewer()
+    {
+        if (_isTrue == true)
+        {
+            uIManger.IncreaseScore();
+        }
+        else if(_isTrue==false)
+        {
+            uIManger.DecreaseHealth();
+        }
+    }
         
 }
 

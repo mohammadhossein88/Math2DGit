@@ -13,20 +13,36 @@ public class equationUi : MonoBehaviour
     [SerializeField] private TMP_Text operstText;
     [SerializeField] private TMP_Text answerS;
     [SerializeField] private TMP_Text answerSA;
+    private equation equation;
+    [SerializeField] private GameObject Equation;
+    [SerializeField] private Button[] _buttons;
+    
+   
 
-    [SerializeField] private Button _button1;
-
-    [SerializeField] private Button _button2;
-    void Start()
-    {
-        
-    }
     private void OnEnable()
     {
         numberOne.text = "a";
         numberTwo.text = "b";
+       int trueAnswers= Random.Range(0, 2);
+       _buttons[trueAnswers].name = _equation.numberOne.ToString();
+       for (int i = 0; i < 2; i++)
+       {
+           if (i != trueAnswers)
+           {
+               _buttons[i].name = _equation.numberTwo.ToString();
+           }
+       }
         answerS.text = _equation.AnsewerS.ToString();
         answerSA.text = _equation.AnsewerA.ToString();
+        equation.gameObject.SetActive(true);
+        equation.onfalseAnsewer();
+        equation.onfalseAnsewer();
     }
+
+    public void OnAnswers(GameObject button)
+    {
+        _equation.AnswerChecker(button.name);
+    }
+    
 
 }
