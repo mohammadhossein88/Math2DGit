@@ -1,16 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//1 +
-//2 -
-//3 *
-//4 /
-public class GameManger : MonoBehaviour
+
+public class multiplyJ : MonoBehaviour
 {
-
-    public int operstion;
-
-    public GameObject Additoon;
+    private string json;
+    private List<int> number = new List<int>();
+    public multiplylist Multiplylist;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,11 +17,5 @@ public class GameManger : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void OnGameModeOperstion(int op)
-    {
-        operstion = op;
-        Additoon.gameObject.SetActive(true);
     }
 }

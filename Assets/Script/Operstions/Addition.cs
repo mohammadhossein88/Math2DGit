@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO.Compression;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -34,27 +30,33 @@ public class Addition : MonoBehaviour
     private int d;
     private int score;
     private int health;
-    private int operstion;
+    private Operators operstion;
     private int minRandom;
     private int maxRandom;
     private float timer = 20;
     private float timerRedues;
     private float timerScaleX;
-    void Start()
+
+    private void OnEnable()
     {
+        timer = 20;
         operstion = gameManger.operstion;
-        Debug.Log(operstion);
-        GenrateQuestion();
         health = 3;
-        healthText.text = health.ToString();
         score = 0;
         timerScaleX = timerImage.localScale.x;
 
     }
 
+    void Start()
+    {
+        GenrateQuestion();
+        healthText.text = health.ToString();
+
+    }
+
     private int GameOperationHandler()
     {
-        if (operstion == 1)
+        if (operstion == Operators.addition)
         {
             minRandom = 0;
             maxRandom = 100;
@@ -66,7 +68,7 @@ public class Addition : MonoBehaviour
             return _a + _b;
             //+
         }
-        else if(operstion==2)
+        else if(operstion== Operators.substraction)
         {
             Operatortext.text = "-";
             maxRandom = 0;
@@ -87,7 +89,7 @@ public class Addition : MonoBehaviour
             Btext.text = _b.ToString();
             return _a - _b;
         }
-        else if (operstion == 3)
+        else if (operstion ==  Operators.multiply)
         {
             Operatortext.text = "*";
             minRandom = 2;
@@ -98,36 +100,87 @@ public class Addition : MonoBehaviour
             Btext.text = _b.ToString();
             return _a * _b;
         }
-        else if (operstion == 4)
+        else if (operstion ==  Operators.division)
         {
             Operatortext.text = "/";
             minRandom = 2;
             maxRandom = 100;
-            _a = Random.Range(minRandom,maxRandom);
+            _a = NotPrimeNumbers();
             Atext.text = _a.ToString();
-            int[] divisibility = new int[_a / 2];
-            int counter = 0;
-            for (int i = 2; i < _a/2; i++)
-            {
-                if (_a % i == 0)
-                {
-                    divisibility[counter] = i;
-                    counter++;
-                }
-            }
-
-            int r = Random.Range(0, counter);
-            _b = divisibility[r];
+            _b = DivisibilityNum();
+            Btext.text = _b.ToString();
             return _a / _b;
-            
+           
+
         }
 
         return 0;
     }
+
+    private int FalseAnswerHandler(int c)
+    {
+        int falseAnswer = 0;
+        if (operstion == Operators.addition || operstion== Operators.substraction)
+        {
+            falseAnswer = Random.Range(c-11, c+10);
+            return falseAnswer;
+        }
+        else if (operstion==Operators.multiply||operstion==Operators.division)
+        {
+            falseAnswer = (_a - 1) * _b;
+            return falseAnswer;
+        }
+
+        return 0;
+
+    }
+    private int NotPrimeNumbers()
+    {
+        int[] notPrime = new int[75];
+        int counter1 = 0;
+            
+        for (int i = 2; i <=maxRandom; i++)
+        {
+            for (int j = 2; j <=i/2; j++)
+            {
+                if (i%j==0)
+                {
+                    notPrime[counter1] = i;
+                    counter1++;
+                    break;
+                }
+                    
+            }
+                
+        }
+        int r1 = Random.Range(0, counter1);
+        return notPrime[r1];
+    }
+
+    private int DivisibilityNum()
+    {
+        int[] divisibility = new int[_a / 2];
+        int counter = 0;
+        for (int i = 2; i <= _a/2; i++)
+        {
+            if (_a % i == 0)
+            {
+                Debug.Log("i"+i);
+                divisibility[counter] = i;
+                counter++;
+            }
+        }
+
+        counter--; 
+        int r = Random.Range(0, (counter));
+        return divisibility[r];
+    }
     private void Update()
     {
+        
         if (timerImage.localScale.x >= 0)
         {
+            Debug.Log(timer);
             timerRedues = timer * Time.deltaTime;
             timerImage.localScale = new Vector3(timerImage.localScale.x - timerRedues, timerImage.localScale.y,
                 timerImage.localScale.z);
@@ -144,7 +197,7 @@ public class Addition : MonoBehaviour
     {
 
         c = GameOperationHandler();
-        d = Random.Range(c - 10, c + 11);
+        d =FalseAnswerHandler(c);
         int randomAnswers = Random.Range(0, 2);
         buttons[randomAnswers].gameObject.name = c.ToString();
         textButtons[randomAnswers].text = c.ToString();
@@ -200,5 +253,10 @@ public class Addition : MonoBehaviour
             Time.timeScale = 0;
         }
     }
-  
+
+    private void OnDisable()
+    {
+        timerImage.localScale = new Vector3(timerScaleX, timerImage.localScale.y);
+
+    }
 }
