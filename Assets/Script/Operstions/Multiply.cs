@@ -10,11 +10,13 @@ public class Multiply : MonoBehaviour
     private int _falseNum;
     private int minNum=2;
     private int maxNum=20;
+    public multiplyGateWay multiplyGateWay;
     public void GenerateQuestionMultiply()
     {
-        _num1 = Random.Range(minNum,maxNum); 
-        _num2 = Random.Range(minNum,maxNum);
-        _trueNum = _num1 * _num2;
+        var muliplylist = multiplyGateWay.GetMultiplyEntity();
+        _num1 = muliplylist.NumberOne;
+        _num2 = muliplylist.NumberTwo;
+        _trueNum = muliplylist.Result;
         _falseNum = (_num1 - 1) * _num2;
     }
     public int GetNumberOneMultiply()
