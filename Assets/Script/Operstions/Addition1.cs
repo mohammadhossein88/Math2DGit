@@ -14,13 +14,14 @@ public class Addition1 : MonoBehaviour
     private int _maxNumber = 100;
     
     private int _minNumber = 0;
-    
+    public AdditionGateWay additionGateWay;
     public void GenerateQuestionAddition()
     {
-        _numberOne = Random.Range(_minNumber,_maxNumber);
-        _numberTwo = Random.Range(_minNumber, _maxNumber);
-        _tureAnsewers = _numberOne + _numberTwo;
-        _falseAnswers = Random.Range(_tureAnsewers-11, _tureAnsewers+10);
+        var question = additionGateWay.GetAdditionEntity();
+        _numberOne = question.NumberOne;
+        _numberTwo = question.NumberTwo;
+        _tureAnsewers = question.Result;
+        _falseAnswers = Random.Range(_tureAnsewers - 10, _tureAnsewers + 10);
     }
     public int GetNumberOneAddition()
     {
