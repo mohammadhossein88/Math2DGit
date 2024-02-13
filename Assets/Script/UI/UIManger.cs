@@ -15,19 +15,25 @@ public class UIManger : MonoBehaviour
     [Header("Game Object Modes")]
     public GameModeHandler GameModeHandler;
     public Image timerImage;
+    public Image answerIndicator;
     private float timer; 
     private float timerRedues;
     private float timerScaleX;
     private int _trueAnswers;
     public int score;
     public int health;
-    public TMP_Text ctext;
+    public bool timerFreeze;
+  
+    private Color defual;
+    private Color answerIndicatorColor;
     private void OnEnable()
     {
         timer = 20;
         score = 0;
         health = 3;
+        timerFreeze = false;
         healthText.text =health.ToString();
+        defual=Color.white;
 
     }
 
@@ -35,11 +41,14 @@ public class UIManger : MonoBehaviour
     {
         if (timerImage.fillAmount>=0)
         {
-            timer-= Time.deltaTime;
-            timerImage.fillAmount -= Time.deltaTime/timer;
-            if (timerImage.fillAmount <=0.25f)
+            if (timerFreeze == false)
             {
-                timerImage.color = Color.red;
+                timer -= Time.deltaTime;
+                timerImage.fillAmount -= Time.deltaTime / timer;
+                if (timerImage.fillAmount <= 0.25f)
+                {
+                    timerImage.color = Color.red;
+                }
             }
         }
         else
@@ -52,16 +61,35 @@ public class UIManger : MonoBehaviour
     {
         timerImage.fillAmount = 1;
         timerImage.color=Color.white;
+        answerIndicatorColor=Color.red;
+        answerIndicatorColor.a = 0.5f;
         score++;
         Winning();
-        GameModeHandler.NextQuestion();
     }
 
     public void DecreaseHealth()
     {
         health--;
+        timerImage.fillAmount = 1;
+        timerImage.color=Color.white;
+        answerIndicatorColor=Color.green;
+        answerIndicatorColor.a = 0.5f;
         healthText.text = health.ToString();
         Losing();
+
+    }
+
+    private IEnumerator NexQuestion()
+    {
+        timerFreeze = true;
+        answerIndicator.color = answerIndicatorColor;
+        yield return new WaitForSeconds(2f);
+        answerIndicatorColor = defual;
+        answerIndicatorColor.a = 0;
+        answerIndicator.color = answerIndicatorColor;
+        GameModeHandler.NextQuestion();
+        
+        timerFreeze = false;
     }
     public void Winning()
     {
@@ -70,6 +98,11 @@ public class UIManger : MonoBehaviour
             winningPanel.SetActive(true);
             Time.timeScale = 0;
         }
+        else
+        {
+            StartCoroutine(NexQuestion());
+
+        }
     }
     public void Losing()
     {
@@ -77,6 +110,11 @@ public class UIManger : MonoBehaviour
         {
             losingPanel.SetActive(true);
             Time.timeScale = 0;
+        }
+        else
+        {
+            StartCoroutine(NexQuestion());
+
         }
     }
 
