@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 using UnityEngine;
 public class JsonConverter : MonoBehaviour
 {
-    private const string AdditionJsonName="AdditoinJsoan";
+    private const string AdditionJsonName="AdditoinJson";
     private const string MultiplyJsonName="multiply";
     private string SubstractionJsonNam;
     private string DivisionJsonName;
@@ -18,7 +18,7 @@ public class JsonConverter : MonoBehaviour
     {
         string additionJson = Resources.Load(AdditionJsonName).ToString();
         string multiplyJson = Resources.Load(MultiplyJsonName).ToString();
-      //  string substractionJson = Resources.Load(SubstractionJsonNam).ToString();
+        //  string substractionJson = Resources.Load(SubstractionJsonNam).ToString();
         //string divisionJson = Resources.Load(DivisionJsonName).ToString();
         _additionObjects = JArray.Parse(additionJson).ToObject<List<JObject>>();
         _multiplyObjects = JArray.Parse(multiplyJson).ToObject<List<JObject>>();
