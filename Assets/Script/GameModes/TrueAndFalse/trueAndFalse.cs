@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 using Random = UnityEngine.Random;
 
 public class trueAndFalse : MonoBehaviour
@@ -13,6 +15,8 @@ public class trueAndFalse : MonoBehaviour
     [SerializeField] private UIManger UIManger;
     [SerializeField] private GameObject trueAndFalseGameObject;
     [SerializeField] private TureAndFalseUI trueAndFalseUI;
+    [SerializeField] private Image trueButton;
+    [SerializeField] private Image falseButton;
     [HideInInspector]public int _numberOne = 0;
     [HideInInspector]public int _numberTwo = 0;
     [HideInInspector]public int _ansewers = 0;
@@ -21,8 +25,8 @@ public class trueAndFalse : MonoBehaviour
      private bool isTrue;
     public void GenerateQuestionTrueAndFalse(Operators operators)
     {
-        //Addition?
-        //Subscription?
+        trueButton.color=Color.white;
+        falseButton.color = Color.white;
         OperstionHandling(operators);
 
     }
@@ -77,7 +81,8 @@ public class trueAndFalse : MonoBehaviour
         }
         trueAndFalseGameObject.SetActive(true);
         trueAndFalseUI.numberOne.text = num1.ToString();
-        trueAndFalseUI.numberTwo.text = num2.ToString();
+        trueAndFalseUI.numberTwo.text = num2.ToString()+"=";
+        trueAndFalseUI.ansewers.text = _ansewers.ToString();
         trueAndFalseUI.opertor.text = _opText;
     }
 
@@ -85,10 +90,14 @@ public class trueAndFalse : MonoBehaviour
     {
         if (isTrue)
         {
+            trueButton.color=Color.green;
+            falseButton.color = Color.red;
             UIManger.IncreaseScore();
         }
         else
         {
+            trueButton.color=Color.red;
+            falseButton.color = Color.green;
             UIManger.DecreaseHealth();
         }
     }
@@ -97,11 +106,15 @@ public class trueAndFalse : MonoBehaviour
     {
         if (isTrue == false)
         {
+            trueButton.color=Color.green;
+            falseButton.color = Color.red;
             UIManger.IncreaseScore();
 
         }
         else
         {
+            trueButton.color=Color.red;
+            falseButton.color = Color.green;
             UIManger.DecreaseHealth();
         }
     }
