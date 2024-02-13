@@ -8,7 +8,7 @@ public class TureAndFalseUI : MonoBehaviour
      public TMP_Text numberOne;
 
      public TMP_Text numberTwo;
-
+     public TMP_Text ansewers;
      public TMP_Text opertor;
      
 }
