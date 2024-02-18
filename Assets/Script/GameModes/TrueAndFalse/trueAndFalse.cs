@@ -98,7 +98,7 @@ public class trueAndFalse : MonoBehaviour
         {
             trueButton.color=Color.red;
             falseButton.color = Color.green;
-            UIManger.DecreaseHealth();
+            StartCoroutine(UIManger.DecreaseHealth());
         }
     }
 
@@ -115,7 +115,7 @@ public class trueAndFalse : MonoBehaviour
         {
             trueButton.color=Color.red;
             falseButton.color = Color.green;
-            UIManger.DecreaseHealth();
+            StartCoroutine(UIManger.DecreaseHealth());
         }
     }
   

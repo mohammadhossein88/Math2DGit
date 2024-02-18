@@ -55,7 +55,7 @@ public class equation : MonoBehaviour
         }
         else
         {
-            uIManger.DecreaseHealth();
+            StartCoroutine(uIManger.DecreaseHealth());
 
         }
     }
@@ -67,7 +67,7 @@ public class equation : MonoBehaviour
         }
         else if (_isTrue == false)
         {
-            uIManger.DecreaseHealth();
+            StartCoroutine(uIManger.DecreaseHealth());
         }
         
     }
@@ -80,7 +80,7 @@ public class equation : MonoBehaviour
         }
         else if(_isTrue==false)
         {
-            uIManger.DecreaseHealth();
+            StartCoroutine(uIManger.DecreaseHealth());
         }
     }
         
