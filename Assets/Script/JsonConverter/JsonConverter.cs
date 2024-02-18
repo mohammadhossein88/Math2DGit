@@ -14,24 +14,25 @@ public class JsonConverter : MonoBehaviour
     private List<JObject> _multiplyObjects=new List<JObject>();
     private List<JObject> _substractionObjects;
     private List<JObject> _divisionObjects;
+    
     public void Start()
     {
-        string additionJson = Resources.Load(AdditionJsonName).ToString();
-        string multiplyJson = Resources.Load(MultiplyJsonName).ToString();
-        //  string substractionJson = Resources.Load(SubstractionJsonNam).ToString();
-        //string divisionJson = Resources.Load(DivisionJsonName).ToString();
-        _additionObjects = JArray.Parse(additionJson).ToObject<List<JObject>>();
-        _multiplyObjects = JArray.Parse(multiplyJson).ToObject<List<JObject>>();
+       
+        
 
     }
 
     public List<JObject> GetAdditionJson()
     {
+        string additionJson = Resources.Load(AdditionJsonName).ToString();
+        _additionObjects = JArray.Parse(additionJson).ToObject<List<JObject>>();
         return _additionObjects;
     }
 
     public List<JObject> GetMultiplyJson()
     {
+        string multiplyJson = Resources.Load(MultiplyJsonName).ToString();
+        _multiplyObjects = JArray.Parse(multiplyJson).ToObject<List<JObject>>();
         return _multiplyObjects;
         
     }
