@@ -23,7 +23,7 @@ public class UIManger : MonoBehaviour
     public int score;
     public int health;
     public bool timerFreeze;
-  
+    [SerializeField] private Animator UiAnimator;
     private Color defual;
     private Color answerIndicatorColor;
     private void OnEnable()
@@ -59,40 +59,35 @@ public class UIManger : MonoBehaviour
     }
     public void IncreaseScore()
     {
-        timerImage.fillAmount = 1;
+        timerImage.fillAmount = 1; 
         timerImage.color=Color.white;
-        answerIndicatorColor=Color.red;
-        answerIndicatorColor.a = 0.5f;
+        UiAnimator.SetBool("TrueAnseers",true);
         score++;
-        Winning();
     }
 
-    public void DecreaseHealth()
+    public IEnumerator DecreaseHealth()
     {
         health--;
         timerImage.fillAmount = 1;
         timerImage.color=Color.white;
-        answerIndicatorColor=Color.green;
-        answerIndicatorColor.a = 0.5f;
+        UiAnimator.SetBool("WrongAnswer",true);
+        yield return new WaitForSeconds(0.5f);
         healthText.text = health.ToString();
-        Losing();
 
     }
 
-    private IEnumerator NexQuestion()
+    private void NexQuestion()
     {
         timerFreeze = true;
-        answerIndicator.color = answerIndicatorColor;
-        yield return new WaitForSeconds(2f);
-        answerIndicatorColor = defual;
-        answerIndicatorColor.a = 0;
-        answerIndicator.color = answerIndicatorColor;
+       // UiAnimator.SetBool("TruneNextQuestion",false);
+        //UiAnimator.SetBool("WrongNextQuestion",false);
         GameModeHandler.NextQuestion();
         
         timerFreeze = false;
     }
     public void Winning()
     {
+        
         if (score == 10)
         {
             winningPanel.SetActive(true);
@@ -100,12 +95,12 @@ public class UIManger : MonoBehaviour
         }
         else
         {
-            StartCoroutine(NexQuestion());
+            NexQuestion();  
 
         }
     }
     public void Losing()
-    {
+    {  
         if (health == 0)
         {
             losingPanel.SetActive(true);
@@ -113,7 +108,7 @@ public class UIManger : MonoBehaviour
         }
         else
         {
-            StartCoroutine(NexQuestion());
+            NexQuestion();
 
         }
     }
