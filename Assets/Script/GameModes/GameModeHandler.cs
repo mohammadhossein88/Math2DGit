@@ -5,6 +5,7 @@ public class GameModeHandler : MonoBehaviour
     [Header("Class Reference")]
     [SerializeField]private trueAndFalse trueAndFalse;
 
+    [SerializeField] private ChoiceTheRightAnswers choiceTheRightAnswers;
     [SerializeField] private equation _equation;
     public GameManger _GameManger;
     public OperstionHandler operstionHandler;
@@ -37,6 +38,7 @@ public class GameModeHandler : MonoBehaviour
         switch (_gameModes)
         {
             case GameModes.ChoiseRightAnswer:
+                ChoiceTheRightAnswers();
                 break;
             case GameModes.equation:
                 equationHandler();
@@ -44,6 +46,7 @@ public class GameModeHandler : MonoBehaviour
             case GameModes.TrueAndFalse:
                 TrueAndFalseHandler();
                 break;
+            
             default:
                 Debug.Log("Game Mode is not deffine ");
                 break;
@@ -73,8 +76,20 @@ public class GameModeHandler : MonoBehaviour
 
 
     }
-    
-    
+
+    private void ChoiceTheRightAnswers()
+    {   uIManger.gameObject.SetActive(true);
+        choiceTheRightAnswers.GenerateQuestionChoiceTheRightAnswers(_GameManger.operstion);
+        _numberOne = choiceTheRightAnswers._numberOne;
+        _numberTwo = choiceTheRightAnswers._numberTwo;
+        _Answers = choiceTheRightAnswers._ansewers;
+        
+    }
+
+    private void HardHardCore()
+    {
+        
+    }
     
 
 }

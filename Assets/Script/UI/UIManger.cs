@@ -59,6 +59,7 @@ public class UIManger : MonoBehaviour
     }
     public void IncreaseScore()
     {
+        timerFreeze = true;
         timerImage.fillAmount = 1; 
         timerImage.color=Color.white;
         UiAnimator.SetBool("TrueAnseers",true);
@@ -68,6 +69,7 @@ public class UIManger : MonoBehaviour
     public IEnumerator DecreaseHealth()
     {
         health--;
+        timerFreeze = true;
         timerImage.fillAmount = 1;
         timerImage.color=Color.white;
         UiAnimator.SetBool("WrongAnswer",true);
@@ -78,11 +80,7 @@ public class UIManger : MonoBehaviour
 
     private void NexQuestion()
     {
-        timerFreeze = true;
-       // UiAnimator.SetBool("TruneNextQuestion",false);
-        //UiAnimator.SetBool("WrongNextQuestion",false);
         GameModeHandler.NextQuestion();
-        
         timerFreeze = false;
     }
     public void Winning()

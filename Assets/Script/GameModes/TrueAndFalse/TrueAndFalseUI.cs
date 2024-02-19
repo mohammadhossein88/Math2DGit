@@ -26,17 +26,7 @@ public class TrueAndFalseUI : MonoBehaviour
         numberTwo.text = trueAndFalse._numberTwo.ToString();
         answers.text = trueAndFalse._ansewers.ToString();
     }
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
     private void OnButton1Click()
     {

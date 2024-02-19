@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public enum Operators
 {
@@ -69,7 +67,7 @@ public class GameManger : MonoBehaviour
     {
         gameModes = (GameModes) mode;
         _pages = Pages.GameOperstionPage;
-        gameModeText.text = gameModes.ToString();
+        TranslateGameMod();
         ActiveDeActiveOperstionPage(true);
         Debug.Log("Game mode is"+ gameModes);
 
@@ -85,6 +83,16 @@ public class GameManger : MonoBehaviour
     public void OnGameModeOperstion(int op)
     {
        operstion = (Operators)op;
-        Additoon.gameObject.SetActive(true);
+       Additoon.gameObject.SetActive(true);
+    }
+
+    private void TranslateGameMod()
+    {
+        switch (gameModes)
+        {
+            case GameModes.ChoiseRightAnswer:
+                gameModeText.text = Fa.faConvert("چند گزینه ای");
+                break;
+        }
     }
 }
