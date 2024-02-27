@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum Operators
 {
@@ -32,10 +33,10 @@ public class GameManger : MonoBehaviour
     public Operators operstion;
     public GameModes gameModes;
     public TMP_Text gameModeText;
-    public GameObject Additoon;
+    [FormerlySerializedAs("Additoon")] public GameObject Gameplay;
     public GameObject panel;
     public GameObject buttons1;
-
+    public AudioSource clickSound;
     private Pages _pages;
     // Start is called before the first frame update
     void Start()
@@ -65,6 +66,7 @@ public class GameManger : MonoBehaviour
     }
     public void onclick(int mode)
     {
+        clickSound.Play();
         gameModes = (GameModes) mode;
         _pages = Pages.GameOperstionPage;
         TranslateGameMod();
@@ -75,6 +77,7 @@ public class GameManger : MonoBehaviour
 
     private void ActiveDeActiveOperstionPage(bool isAcivte)
     {
+        
         Debug.Log("Acitve and Deactive");
         panel.SetActive(isAcivte);
         buttons1.SetActive(!isAcivte);
@@ -82,8 +85,10 @@ public class GameManger : MonoBehaviour
     }
     public void OnGameModeOperstion(int op)
     {
+        clickSound.Play();
        operstion = (Operators)op;
-       Additoon.gameObject.SetActive(true);
+       Debug.Log($"Game Operstion is {operstion}");
+       Gameplay.gameObject.SetActive(true);
     }
 
     private void TranslateGameMod()

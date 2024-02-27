@@ -8,39 +8,38 @@ public class equationUi : MonoBehaviour
 {
     [SerializeField] private equation _equation;
     [SerializeField] private TMP_Text numberOne;
-
     [SerializeField] private TMP_Text numberTwo;
-    [SerializeField] private TMP_Text operstText;
-    [SerializeField] private TMP_Text answerS;
-    [SerializeField] private TMP_Text answerSA;
-    private equation equation;
-    [SerializeField] private GameObject Equation;
+    [SerializeField] private TMP_Text text3;
+    [SerializeField]  equation equation;
     [SerializeField] private Button[] _buttons;
+    [SerializeField] private TMP_Text[] buttonsText;
     
-   
 
     private void OnEnable()
     {
-        numberOne.text = "a";
-        numberTwo.text = "b";
+        numberOne.text = "a+b=" + equation.AnsewerA.ToString();
+        numberTwo.text = "a-b="+equation.AnsewerS.ToString();
+        text3.text = "a?".ToString();
        int trueAnswers= Random.Range(0, 2);
        _buttons[trueAnswers].name = _equation.numberOne.ToString();
+       buttonsText[trueAnswers].text = _equation.numberOne.ToString();
        for (int i = 0; i < 2; i++)
        {
            if (i != trueAnswers)
            {
+               
                _buttons[i].name = _equation.numberTwo.ToString();
+               buttonsText[i].text = _equation.numberTwo.ToString();
            }
        }
-        answerS.text = _equation.AnsewerS.ToString();
-        answerSA.text = _equation.AnsewerA.ToString();
+        
         equation.gameObject.SetActive(true);
-        equation.onfalseAnsewer();
-        equation.onfalseAnsewer();
+        
     }
 
     public void OnAnswers(GameObject button)
     {
+        
         _equation.AnswerChecker(button.name);
     }
     

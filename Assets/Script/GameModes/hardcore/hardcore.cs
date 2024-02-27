@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class hardcore : MonoBehaviour
 {
@@ -8,39 +10,50 @@ public class hardcore : MonoBehaviour
     private int _a;
     public GameObject trueandfalse;
     public trueAndFalse Trueandfalse;
+    public ChoiceTheRightAnswers ChoiceTheRightAnswers;
+    public GameObject choiceTheRightAnswers;
     public equation equation;
     public GameObject Equation;
     public UIManger UIManger;
-    void Start()
-    {
-        
-    }
+    public Operators operators;
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
-    }
+        GenerateQuestionHradcore();
+        UIManger.SetHealth(1);
 
+
+    }
     public void GenerateQuestionHradcore()
     {
       _a = Random.Range(1, 100);
       if (_a % 2 == 0)
       {
-          int random = Random.Range(0, 4);
           trueandfalse.gameObject.SetActive(true);
-          Trueandfalse.OperstionHandling((Operators)random);
+         Trueandfalse .GenerateQuestionTrueAndFalse(operators);
           UIManger.gameObject.SetActive(true);
 
       }
       
-      else if (_a%2==1)
+      else if (_a % 2 == 1)
       {
-          Equation.gameObject.SetActive(true);
-          equation.GenerateQuestionEquation();
-          UIManger.gameObject.SetActive(true);
+          if (_a % 5 == 0)
+          {
+              Equation.gameObject.SetActive(true);
+              equation.GenerateQuestionEquation();
+              UIManger.gameObject.SetActive(true);
+          }
+          else
+          {
+              choiceTheRightAnswers.gameObject.SetActive(true);
+              ChoiceTheRightAnswers.GenerateQuestionChoiceTheRightAnswers(operators);
+          }
+
+      
           
       }
 
     }
+
+ 
 }

@@ -3,48 +3,49 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class UIManger : MonoBehaviour
 {
-   
-    public TMP_Text healthText;
-    public GameObject winningPanel;
-    public GameObject losingPanel;
-    [Header("Game Object Modes")]
+    [Header("Dependency ")]
     public GameModeHandler GameModeHandler;
-    public Image timerImage;
-    public Image answerIndicator;
-    private float timer; 
-    private float timerRedues;
-    private float timerScaleX;
-    private int _trueAnswers;
-    public int score;
-    public int health;
-    public bool timerFreeze;
-    [SerializeField] private Animator UiAnimator;
-    private Color defual;
-    private Color answerIndicatorColor;
+    //Filed 
+    [FormerlySerializedAs("UiAnimator")] [SerializeField]private Animator uiAnimator;
+    
+    [Header("timer and health")]
+    [SerializeField]private Image timerImage;
+    [SerializeField]private TMP_Text healthText;
+    
+    [Header("win and lose ")]
+    [SerializeField]private GameObject winningPanel;
+    [SerializeField]private GameObject losingPanel;
+    [SerializeField]private AudioSource gameSfxWinning;
+    [SerializeField]private AudioSource gameSfxLosing;
+    
+    //Class property 
+    private float _timer; 
+    private int _score;
+    private int _health;
+    private bool _timerFreeze;
     private void OnEnable()
     {
-        timer = 20;
-        score = 0;
-        health = 3;
-        timerFreeze = false;
-        healthText.text =health.ToString();
-        defual=Color.white;
+        _timer = 20;
+        _score = 0;
+        _health = 3;
+        _timerFreeze = false;
+        healthText.text =_health.ToString();
 
     }
-
     private void Update()
     {
         if (timerImage.fillAmount>=0)
         {
-            if (timerFreeze == false)
+            if (_timerFreeze == false)
             {
-                timer -= Time.deltaTime;
-                timerImage.fillAmount -= Time.deltaTime / timer;
+                _timer -= Time.deltaTime;
+                timerImage.fillAmount -= Time.deltaTime / _timer;
                 if (timerImage.fillAmount <= 0.25f)
                 {
                     timerImage.color = Color.red;
@@ -57,36 +58,49 @@ public class UIManger : MonoBehaviour
             Time.timeScale = 0;
         }
     }
+
+    public void SetHealth(int heath)
+    {
+        if (heath > 0)
+        {
+            _health = heath;
+        }
+        else
+        {
+            Debug.LogError($"Health number must not be less than zero {heath} ");
+        }
+    }
     public void IncreaseScore()
     {
-        timerFreeze = true;
+        _timerFreeze = true;
         timerImage.fillAmount = 1; 
         timerImage.color=Color.white;
-        UiAnimator.SetBool("TrueAnseers",true);
-        score++;
+        _timer = 20;
+        uiAnimator.SetBool("TrueAnseers",true);
+        _score++;
+        gameSfxWinning.Play();
+    
     }
 
     public IEnumerator DecreaseHealth()
     {
-        health--;
-        timerFreeze = true;
+        _health--;
+        gameSfxLosing.Play();
+        _timerFreeze = true;
         timerImage.fillAmount = 1;
         timerImage.color=Color.white;
-        UiAnimator.SetBool("WrongAnswer",true);
+        _timer = 20;
+        uiAnimator.SetBool("WrongAnswer",true);
         yield return new WaitForSeconds(0.5f);
-        healthText.text = health.ToString();
+        healthText.text = _health.ToString();
 
     }
 
-    private void NexQuestion()
-    {
-        GameModeHandler.NextQuestion();
-        timerFreeze = false;
-    }
+    
     public void Winning()
     {
         
-        if (score == 10)
+        if (_score == 10)
         {
             winningPanel.SetActive(true);
             Time.timeScale = 0;
@@ -99,7 +113,7 @@ public class UIManger : MonoBehaviour
     }
     public void Losing()
     {  
-        if (health == 0)
+        if (_health == 0)
         {
             losingPanel.SetActive(true);
             Time.timeScale = 0;
@@ -110,5 +124,12 @@ public class UIManger : MonoBehaviour
 
         }
     }
+  
+    private void NexQuestion()
+    {
+        GameModeHandler.NextQuestion();
+        _timerFreeze = false;
+    }
+   
 
 }
