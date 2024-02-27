@@ -257,61 +257,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 33180408}
   m_CullTransparentMesh: 1
---- !u!1 &81674686
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 81674687}
-  - component: {fileID: 81674688}
-  m_Layer: 0
-  m_Name: equation
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &81674687
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 81674686}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1648259644}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &81674688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 81674686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f774724917adcbd4ba4040e243de22b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  addition1: {fileID: 0}
-  subtraction: {fileID: 0}
-  uIManger: {fileID: 0}
-  equationGameObject: {fileID: 0}
-  numberOne: 0
-  tureAnsewers: 0
-  AnsewerA: 0
-  AnsewerS: 0
-  numberTwo: 0
-  falseAnswers: 0
-  opText: 
 --- !u!224 &102232061 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 802087488285275341, guid: 347048a2f245b5c45ac5172e68be6879, type: 3}
@@ -1109,7 +1054,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &269246968
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1214,16 +1159,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5806911be25d3844c9e9afaa650f9fa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameModeHandler: {fileID: 1610396433}
+  uiAnimator: {fileID: 374940614}
+  timerImage: {fileID: 1780810932}
   healthText: {fileID: 2066364342}
   winningPanel: {fileID: 365034403}
   losingPanel: {fileID: 903385421}
-  GameModeHandler: {fileID: 1610396433}
-  timerImage: {fileID: 1780810932}
-  answerIndicator: {fileID: 374940612}
-  score: 0
-  health: 0
-  timerFreeze: 0
-  UiAnimator: {fileID: 374940614}
   gameSfxWinning: {fileID: 1112277421}
   gameSfxLosing: {fileID: 1464436231}
 --- !u!1 &307135009
@@ -6395,7 +6336,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1648259645}
         m_TargetAssemblyTypeName: equationUi, Assembly-CSharp
         m_MethodName: OnAnswers
         m_Mode: 2
@@ -7700,15 +7641,15 @@ GameObject:
   - component: {fileID: 1610396429}
   - component: {fileID: 1610396428}
   - component: {fileID: 1610396434}
-  - component: {fileID: 1610396435}
   - component: {fileID: 1610396436}
+  - component: {fileID: 1610396437}
   m_Layer: 0
   m_Name: GamePlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1610396427
 Transform:
   m_ObjectHideFlags: 0
@@ -7803,12 +7744,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trueAndFalse: {fileID: 1610396434}
   choiceTheRightAnswers: {fileID: 1610396436}
-  _equation: {fileID: 81674688}
+  _equation: {fileID: 1610396437}
   _GameManger: {fileID: 1915289204}
-  operstionHandler: {fileID: 1610396432}
-  gameManger: {fileID: 1915289204}
   uIManger: {fileID: 269246972}
-  _numberOne: 0
 --- !u!114 &1610396434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7834,29 +7772,6 @@ MonoBehaviour:
   _numberTwo: 0
   _ansewers: 0
   _opText: 
---- !u!114 &1610396435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1610396425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f774724917adcbd4ba4040e243de22b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  addition1: {fileID: 0}
-  subtraction: {fileID: 0}
-  uIManger: {fileID: 0}
-  equationGameObject: {fileID: 0}
-  numberOne: 0
-  tureAnsewers: 0
-  AnsewerA: 0
-  AnsewerS: 0
-  numberTwo: 0
-  falseAnswers: 0
-  opText: 
 --- !u!114 &1610396436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7891,6 +7806,24 @@ MonoBehaviour:
   answerButtonImage:
   - {fileID: 1917080859}
   - {fileID: 33180411}
+--- !u!114 &1610396437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610396425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f774724917adcbd4ba4040e243de22b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uIManger: {fileID: 269246972}
+  equationGameObject: {fileID: 1648259643}
+  numberOne: 0
+  AnsewerA: 0
+  AnsewerS: 0
+  numberTwo: 0
 --- !u!1 &1636631714
 GameObject:
   m_ObjectHideFlags: 0
@@ -8186,7 +8119,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1648259644
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8202,7 +8135,6 @@ RectTransform:
   - {fileID: 1989587013}
   - {fileID: 1396446833}
   - {fileID: 1519405940}
-  - {fileID: 81674687}
   m_Father: {fileID: 269246968}
   m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8223,13 +8155,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47085ab907fca94c96b03dd9bab38b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _equation: {fileID: 81674688}
+  _equation: {fileID: 1610396437}
   numberOne: {fileID: 728417736}
   numberTwo: {fileID: 1680769015}
   text3: {fileID: 252849346}
+  equation: {fileID: 1610396437}
   _buttons:
   - {fileID: 1989587014}
   - {fileID: 1396446834}
+  buttonsText:
+  - {fileID: 772128038}
+  - {fileID: 1157236943}
 --- !u!1 &1666658986
 GameObject:
   m_ObjectHideFlags: 0
@@ -9440,7 +9376,7 @@ MonoBehaviour:
   operstion: 0
   gameModes: 0
   gameModeText: {fileID: 550428955}
-  Additoon: {fileID: 1610396425}
+  Gameplay: {fileID: 1610396425}
   panel: {fileID: 1913451588}
   buttons1: {fileID: 566376427}
   clickSound: {fileID: 995661737}
@@ -9609,7 +9545,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1941871207
 Transform:
   m_ObjectHideFlags: 0
@@ -9641,7 +9577,7 @@ MonoBehaviour:
   Trueandfalse: {fileID: 0}
   ChoiceTheRightAnswers: {fileID: 0}
   choiceTheRightAnswers: {fileID: 0}
-  equation: {fileID: 81674688}
+  equation: {fileID: 0}
   Equation: {fileID: 1648259643}
   UIManger: {fileID: 0}
   operators: 0
@@ -10104,7 +10040,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1648259645}
         m_TargetAssemblyTypeName: equationUi, Assembly-CSharp
         m_MethodName: OnAnswers
         m_Mode: 2
