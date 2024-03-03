@@ -7,15 +7,21 @@ public class GameModeHandler : MonoBehaviour
 
     [SerializeField] private ChoiceTheRightAnswers choiceTheRightAnswers;
     [SerializeField] private equation _equation;
+    [SerializeField] private hardcore hardcore;
+    [SerializeField] private GameObject _forTwoplayer;
+    
+    
     public GameManger _GameManger;
     public UIManger uIManger;
 
     private GameModes _gameModes;
-
+    private PlayingMod _playingMod;
 
     private void OnEnable()
     {
         _gameModes = _GameManger.gameModes;
+        _playingMod = _GameManger.playerMod;
+        _twoPlayer(_playingMod);
         SwitchGameMode();
     }
 
@@ -37,6 +43,9 @@ public class GameModeHandler : MonoBehaviour
             case GameModes.TrueAndFalse:
                 TrueAndFalseHandler();
                 break;
+            case GameModes.Hardcore :
+                HardCore();
+                break;
 
             default:
                 Debug.Log("Game Mode is not deffine ");
@@ -44,27 +53,37 @@ public class GameModeHandler : MonoBehaviour
         }
     }
 
-    private void TrueAndFalseHandler()
+    public void TrueAndFalseHandler()
     {
         uIManger.gameObject.SetActive(true);
         trueAndFalse.GenerateQuestionTrueAndFalse(_GameManger.operstion);
     }
 
-    private void equationHandler()
+    public void equationHandler()
     {
         Debug.Log("Enter Eq Handelr ");
         uIManger.gameObject.SetActive(true);
         _equation.GenerateQuestionEquation();
     }
 
-    private void ChoiceTheRightAnswers()
+    public void ChoiceTheRightAnswers()
     {
         uIManger.gameObject.SetActive(true);
         choiceTheRightAnswers.GenerateQuestionChoiceTheRightAnswers(_GameManger.operstion);
     }
 
-    private void HardHardCore()
+    private void HardCore()
     {
+        uIManger.gameObject.SetActive(true);
+        hardcore.GenerateQuestionHradcore();
+    }
+
+    private void _twoPlayer(PlayingMod playingMod)
+    {
+        if(playingMod == PlayingMod.TwoPlayer)
+        {
+            _forTwoplayer.SetActive(true);
+        }
         
     }
     

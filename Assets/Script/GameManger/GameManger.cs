@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public enum Operators
 {
@@ -21,26 +24,40 @@ public enum GameModes
 
 public enum Pages
 {
+    PlayerMode,
     GameMode,
     GameOperstionPage,
     Setting,
     aboutUs,
     
 }
+
+public enum PlayingMod
+{
+    SingelPlayer,
+    TwoPlayer
+}
 public class GameManger : MonoBehaviour
 {
-
-    public Operators operstion;
-    public GameModes gameModes;
-    public TMP_Text gameModeText;
+    [Header("Game Panels")]
     [FormerlySerializedAs("Additoon")] public GameObject Gameplay;
     public GameObject panel;
-    public GameObject buttons1;
+    public GameObject playerModePanel;
+    public GameObject gameModesPanel;
+    public GameObject questionPanel;
+    public GameObject buttonTwoPlayer;
+    [Header("Game Mode Text")]
+    public TMP_Text gameModeText;
+    [Header("Audio")]
     public AudioSource clickSound;
+    [HideInInspector]public Operators operstion;
+    [HideInInspector] public GameModes gameModes;
+    [HideInInspector] public PlayingMod playerMod;
     private Pages _pages;
     // Start is called before the first frame update
     void Start()
     {
+       // Debug.Log(DateTime.Now);
         _pages = Pages.GameMode;
     }
 
@@ -52,10 +69,15 @@ public class GameManger : MonoBehaviour
             Debug.Log("Prees Ecp");
             SwitchPage();
         }
+
     }
 
     private void SwitchPage()
     {
+        if (_pages == Pages.PlayerMode)
+        {
+            ActiveDeActiveGameMode(false);
+        }
         if (_pages == Pages.GameOperstionPage)
         {
             Debug.Log("Switch Page ");
@@ -80,7 +102,14 @@ public class GameManger : MonoBehaviour
         
         Debug.Log("Acitve and Deactive");
         panel.SetActive(isAcivte);
-        buttons1.SetActive(!isAcivte);
+        gameModesPanel.SetActive(!isAcivte);
+        
+    }
+
+    private void ActiveDeActiveGameMode(bool isActive)
+    {
+        playerModePanel.SetActive(isActive);
+        gameModesPanel.SetActive(!isActive);
         
     }
     public void OnGameModeOperstion(int op)
@@ -100,4 +129,15 @@ public class GameManger : MonoBehaviour
                 break;
         }
     }
+
+   
+    public void OnPlayerModeButton(int playerType)
+    {
+        playerMod = (PlayingMod) playerType;
+        _pages = Pages.PlayerMode;
+        SwitchPage();
+    }
+    
 }
+
+

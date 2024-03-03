@@ -6,8 +6,9 @@ public class mainMenu : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject panel;
-    public GameObject startMenu;
+    public GameObject startMenu; 
     public GameObject setting;
+    public GameObject numberOfPlayer;
     public GameObject AboutUs;
     public AudioSource audioSource;
 
@@ -26,7 +27,7 @@ public class mainMenu : MonoBehaviour
     {
         startMenu.gameObject.SetActive(false);
         audioSource.Play();
-        panel.SetActive(true);
+        numberOfPlayer.SetActive(true);
     }
 
     public void OnExit()
@@ -47,6 +48,12 @@ public class mainMenu : MonoBehaviour
         startMenu.SetActive(false);
         audioSource.Play();
         AboutUs.SetActive(true);
+    }
+
+    public void OnSingle()
+    {
+        numberOfPlayer.SetActive(false);
+        panel.SetActive(true);
     }
     
 

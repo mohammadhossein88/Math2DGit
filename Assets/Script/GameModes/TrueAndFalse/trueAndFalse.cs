@@ -5,7 +5,6 @@ using Random = UnityEngine.Random;
 
 public class trueAndFalse : MonoBehaviour
 {
-    //Attribute 
     
     
     [SerializeField]private Addition1 addition1; 
@@ -17,12 +16,18 @@ public class trueAndFalse : MonoBehaviour
     [SerializeField] private TureAndFalseUI trueAndFalseUI;
     [SerializeField] private Image trueButton;
     [SerializeField] private Image falseButton;
+    [SerializeField] private Image trueButtonNum1;
+    [SerializeField] private Image falseButtonNum1;
+    [SerializeField] private Image trueButtonNum2;
+    [SerializeField] private Image falseButtonNum2;
+    
     [HideInInspector]public int _numberOne = 0;
     [HideInInspector]public int _numberTwo = 0;
     [HideInInspector]public int _ansewers = 0;
     [HideInInspector] public string _opText;
      private int _falseOrTrue;
      private bool isTrue;
+     //private bool _isFirstPlayer;
     public void GenerateQuestionTrueAndFalse(Operators operators)
     {
         trueButton.color=Color.white;
@@ -101,6 +106,7 @@ public class trueAndFalse : MonoBehaviour
             StartCoroutine(UIManger.DecreaseHealth());
         }
     }
+    
 
     public void OnFlaseAnswer()
     {
@@ -117,6 +123,52 @@ public class trueAndFalse : MonoBehaviour
             falseButton.color = Color.green;
             StartCoroutine(UIManger.DecreaseHealth());
         }
+    }
+
+    private void OnSingleAnswerOrTwoPlayer(bool isFirst)
+    {
+        if (isFirst == true)
+        {
+            if (isTrue == false)
+            {
+                trueButtonNum1.color=Color.green;
+                falseButtonNum1.color = Color.red;
+                UIManger.IncreaseScoreNum2();
+
+            }
+            else
+            {
+                trueButtonNum1.color=Color.red;
+                falseButtonNum1.color = Color.green;
+                StartCoroutine(UIManger.DecreaseHealthNum2());
+            }
+        }
+            
+        
+
+        if (isFirst!=true)
+        {
+            
+            if (isTrue == false)
+            {
+                trueButtonNum2.color=Color.green;
+                falseButtonNum2.color = Color.red;
+                UIManger.IncreaseScore();
+
+            }
+            else
+            {
+                trueButtonNum2.color=Color.red;
+                falseButtonNum2.color = Color.green;
+                StartCoroutine(UIManger.DecreaseHealth());
+            }
+            
+            
+        }
+        UIManger.winningTwoPlayer();
+        UIManger.losingTwoPlayer();
+
+
     }
   
 }

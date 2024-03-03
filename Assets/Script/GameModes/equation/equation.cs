@@ -19,6 +19,10 @@ public class equation : MonoBehaviour
        
         numberTwo = Random.Range(_minNumber, _MaxNumber);
         numberOne=Random.Range(_minNumber, _MaxNumber);
+      if (numberOne == numberTwo)
+        {
+           numberTwo = Random.Range(numberOne - 15, numberOne + 17);
+        }
         AnsewerS =numberOne-numberTwo ;
         if (numberOne<numberTwo)
         {
@@ -35,12 +39,12 @@ public class equation : MonoBehaviour
         if (ans == numberOne)
         {
             uIManger.IncreaseScore();
-
+            
         }
         else
         {
             StartCoroutine(uIManger.DecreaseHealth());
-
+            
         }
     }
   
