@@ -22,14 +22,14 @@ public class AnswerUIAnimtion : MonoBehaviour
     {
         UiAnimator.SetBool("TrueAnseers",false);
         UiAnimator.SetBool("TruneNextQuestion",true);
-        UIManger.Winning();
-    }
+        StartCoroutine(UIManger.Winning());
+    } 
 
     public void OnWrongAnswer()
     {
         UiAnimator.SetBool("WrongAnswer",false);
         UiAnimator.SetBool("WrongNextQuestion",true);
-        UIManger.Losing();
+        StartCoroutine( UIManger.Losing());
     }
 
 }

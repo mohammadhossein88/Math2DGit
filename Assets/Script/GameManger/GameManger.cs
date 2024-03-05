@@ -46,6 +46,7 @@ public class GameManger : MonoBehaviour
     public GameObject gameModesPanel;
     public GameObject questionPanel;
     public GameObject buttonTwoPlayer;
+    public GameObject buttonPlayer;
     [Header("Game Mode Text")]
     public TMP_Text gameModeText;
     [Header("Audio")]
@@ -118,6 +119,7 @@ public class GameManger : MonoBehaviour
        operstion = (Operators)op;
        Debug.Log($"Game Operstion is {operstion}");
        Gameplay.gameObject.SetActive(true);
+       panel.gameObject.SetActive(false);
     }
 
     private void TranslateGameMod()
@@ -136,6 +138,16 @@ public class GameManger : MonoBehaviour
         playerMod = (PlayingMod) playerType;
         _pages = Pages.PlayerMode;
         SwitchPage();
+        if (playerMod == (PlayingMod) 1)
+        { Debug.Log("twoPlayer");
+            buttonTwoPlayer.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("single");
+            buttonPlayer.SetActive(true);
+            Debug.Log("panel is set");
+        }
     }
     
 }

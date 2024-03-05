@@ -91,6 +91,15 @@ public class trueAndFalse : MonoBehaviour
         trueAndFalseUI.opertor.text = _opText;
     }
 
+    public void onavtive()
+    {
+        trueAndFalseGameObject.SetActive(false);
+        trueAndFalseUI.numberOne.text = "";
+        trueAndFalseUI.numberTwo.text = "";
+        trueAndFalseUI.ansewers.text = "";
+        trueAndFalseUI.opertor.text = "";
+    }
+
     public void OnTrueAnswer()
     {
         if (isTrue)

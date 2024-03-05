@@ -25,6 +25,13 @@ public class ChoiceTheRightAnswers : MonoBehaviour
     [SerializeField] private TMP_Text[] answerButtonsText;
     [SerializeField] private Image[] answerButtonImage;
     private bool isTrue;
+     public  void onavtive()
+    {
+        choiceAnswerGameObject.SetActive(false);
+        _choiceTheRightAnswersUI.numberOne.text = "";
+        _choiceTheRightAnswersUI.numberTwo.text = "";
+        _choiceTheRightAnswersUI.operstText.text = "";
+    }
     public void GenerateQuestionChoiceTheRightAnswers(Operators operators)
     {
         for (int i = 0; i < answerButtonImage.Length; i++)
@@ -65,7 +72,12 @@ public class ChoiceTheRightAnswers : MonoBehaviour
                 division.GetTrueAnswerDivision(), division.GetWrongAnswerDivision());
         }
 
+        
+
+
+
     }
+   
     private void TureAndFalse(int num1,int num2,int tAnswer,int fAnswer)
     {
         _numberOne = num1;

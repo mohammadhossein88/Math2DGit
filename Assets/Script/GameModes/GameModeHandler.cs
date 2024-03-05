@@ -1,5 +1,7 @@
 
 using UnityEngine;
+using UnityEngine.Serialization;
+
 public class GameModeHandler : MonoBehaviour
 {
     [Header("Class Reference")] [SerializeField]
@@ -9,25 +11,52 @@ public class GameModeHandler : MonoBehaviour
     [SerializeField] private equation _equation;
     [SerializeField] private hardcore hardcore;
     [SerializeField] private GameObject _forTwoplayer;
+    [SerializeField] private GameObject _forSingleplayer;
     
     
     public GameManger _GameManger;
     public UIManger uIManger;
 
     private GameModes _gameModes;
-    private PlayingMod _playingMod;
+    [HideInInspector]public PlayingMod playingMod;
 
     private void OnEnable()
     {
         _gameModes = _GameManger.gameModes;
-        _playingMod = _GameManger.playerMod;
-        _twoPlayer(_playingMod);
+        playingMod = _GameManger.playerMod;
+        _twoPlayer(playingMod);
         SwitchGameMode();
     }
 
     public void NextQuestion()
     {
         SwitchGameMode();
+    }
+
+    public void _onended()
+    {
+        switch (_gameModes)
+        {case GameModes.ChoiseRightAnswer:
+                choiceTheRightAnswers.onavtive();
+                break;
+            case GameModes.equation:
+                _equation.onavtive() ;
+                break;
+            case GameModes.TrueAndFalse:
+                trueAndFalse.onavtive();
+                break;
+            case GameModes.Hardcore :
+                HardCore();
+                break;
+
+            default:
+                Debug.Log("Game Mode is not deffine ");
+                break;
+            
+            
+        }
+        uIManger.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     private void SwitchGameMode()
@@ -51,6 +80,7 @@ public class GameModeHandler : MonoBehaviour
                 Debug.Log("Game Mode is not deffine ");
                 break;
         }
+       
     }
 
     public void TrueAndFalseHandler()
@@ -82,6 +112,7 @@ public class GameModeHandler : MonoBehaviour
     {
         if(playingMod == PlayingMod.TwoPlayer)
         {
+            Debug.Log("twoplayer");
             _forTwoplayer.SetActive(true);
         }
         

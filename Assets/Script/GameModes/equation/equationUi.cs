@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class equationUi : MonoBehaviour
 {
     [SerializeField] private equation _equation;
-    [SerializeField] private TMP_Text numberOne;
-    [SerializeField] private TMP_Text numberTwo;
-    [SerializeField] private TMP_Text text3;
+    [SerializeField] public TMP_Text numberOne;
+    [SerializeField] public TMP_Text numberTwo;
+    [SerializeField] public TMP_Text text3;
     [SerializeField]  equation equation;
     [SerializeField] private Button[] _buttons;
     [SerializeField] private TMP_Text[] buttonsText;

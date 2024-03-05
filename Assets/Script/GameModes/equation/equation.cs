@@ -10,6 +10,7 @@ public class equation : MonoBehaviour
     [HideInInspector]public int AnsewerA = 0;
     [HideInInspector]public int AnsewerS = 0;
     [HideInInspector]public int numberTwo = 0;
+    private equationUi _equationUi;
     private int _equation;
     private bool _isTrue;
     private int _MaxNumber = 100;
@@ -32,6 +33,15 @@ public class equation : MonoBehaviour
         equationGameObject.SetActive(true);
         
     }
+
+    public void onavtive()
+    {
+        equationGameObject.SetActive(false);
+        _equationUi.numberOne.text = "";
+        _equationUi.numberTwo.text = "";
+        _equationUi.text3.text = "";
+    }
+
 
     public void AnswerChecker(string answer)
     {

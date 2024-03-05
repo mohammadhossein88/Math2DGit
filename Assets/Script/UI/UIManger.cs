@@ -11,6 +11,8 @@ public class UIManger : MonoBehaviour
 {
     [Header("Dependency ")]
     public GameModeHandler GameModeHandler;
+    [Header("Question Panel")]
+    public GameObject questionPanel;
     //Filed 
     [FormerlySerializedAs("UiAnimator")] [SerializeField]private Animator uiAnimator;
     
@@ -27,6 +29,7 @@ public class UIManger : MonoBehaviour
     [Header("win and lose ")]
     [SerializeField]private GameObject winningPanel;
     [SerializeField]private GameObject losingPanel;
+    [SerializeField] private GameObject startmenu;
     [SerializeField]private AudioSource gameSfxWinning;
     [SerializeField]private AudioSource gameSfxLosing;
     
@@ -53,12 +56,24 @@ public class UIManger : MonoBehaviour
         _health = 3;
         _timerFreeze = false;
         _playerStartingTime=DateTime.Now;
+        timerImage.color=Color.green;
+        timerImage.fillAmount = 1;
         healthText.text =_health.ToString();
+        if (GameModeHandler.playingMod == PlayingMod.TwoPlayer)
+        {
+            questionPanel.GetComponent<RectTransform>().rotation = new Quaternion(questionPanel.transform.rotation.x,
+                questionPanel.transform.rotation.y, 1, questionPanel.transform.rotation.w);
+        }
+        else
+        {
+            questionPanel.GetComponent<RectTransform>().rotation = new Quaternion(questionPanel.transform.rotation.x,
+                questionPanel.transform.rotation.y, 0, questionPanel.transform.rotation.w);
+        }
 
     }
     private void Update()
     {
-        if (timerImage.fillAmount>=0)
+        if (timerImage.fillAmount>0)
         {
             if (_timerFreeze == false)
             {
@@ -72,8 +87,9 @@ public class UIManger : MonoBehaviour
         }
         else
         {
-            losingPanel.SetActive(true);
-            Time.timeScale = 0;
+
+            StartCoroutine(Losing());
+           // Time.timeScale = 0;
         }
     }
 
@@ -92,7 +108,7 @@ public class UIManger : MonoBehaviour
     {
         _timerFreeze = true;
         timerImage.fillAmount = 1; 
-        timerImage.color=Color.white;
+        timerImage.color=Color.green;
         _timer = 20;
         uiAnimator.SetBool("TrueAnseers",true);
         _numTrueAnsewer++;
@@ -103,7 +119,7 @@ public class UIManger : MonoBehaviour
     {
         _timerFreeze = true;
         timerImage.fillAmount = 1; 
-        timerImage.color=Color.white;
+        timerImage.color=Color.green;
         _timer = 20;
         uiAnimator.SetBool("TrueAnseers",true);
         scoreNum2++;
@@ -119,7 +135,7 @@ public class UIManger : MonoBehaviour
         gameSfxLosing.Play();
         _timerFreeze = true;
         timerImage.fillAmount = 1;
-        timerImage.color=Color.white;
+        timerImage.color=Color.green;
         _timer = 20;
         uiAnimator.SetBool("WrongAnswer",true);
         yield return new WaitForSeconds(0.5f);
@@ -132,7 +148,7 @@ public class UIManger : MonoBehaviour
         gameSfxLosing.Play();
         _timerFreeze = true;
         timerImage.fillAmount = 1;
-        timerImage.color=Color.white;
+        timerImage.color=Color.green;
         _timer = 20;
         uiAnimator.SetBool("WrongAnswer",true);
         yield return new WaitForSeconds(0.5f);
@@ -169,7 +185,7 @@ public class UIManger : MonoBehaviour
     
 
     
-    public void Winning()
+    public IEnumerator Winning()
     {
         
         if (_numTrueAnsewer == 10)
@@ -178,6 +194,10 @@ public class UIManger : MonoBehaviour
             CalculateScore();
             winningPanel.SetActive(true);
             Time.timeScale = 0;
+            yield return new WaitForSeconds(2.5f);
+            GameModeHandler._onended();
+            startmenu.SetActive(true);
+            winningPanel.SetActive(false);
         }
         else
         {
@@ -185,12 +205,17 @@ public class UIManger : MonoBehaviour
 
         }
     }
-    public void Losing()
+    public IEnumerator Losing()
     {  
-        if (_health == 0)
+        if (_health == 0||  timerImage.fillAmount==0)
         {
             losingPanel.SetActive(true);
-            Time.timeScale = 0;
+            yield return new WaitForSeconds(2.5f);
+           // Time.timeScale = 0;
+
+            startmenu.SetActive(true);
+            GameModeHandler._onended();
+            losingPanel.SetActive(false);
         }
         else
         {
